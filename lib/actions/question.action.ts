@@ -14,7 +14,7 @@ export async function getQuestions(params: GetQuestionsParams) {
     const questions = await Question.find({})
       .populate({ path: "tags", model: Tag })
       .populate({ path: "author", model: User })
-      .sort({ createdAt: -1 })
+      .sort({ createdAt: -1 });
 
     return { questions };
   } catch (error) {
