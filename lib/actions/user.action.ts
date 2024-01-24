@@ -1,6 +1,6 @@
 "use server";
 
-import { FilterQuery, model } from "mongoose";
+import { FilterQuery} from "mongoose";
 import User from "@/database/user.model";
 import { connectToDatabase } from "../mongoose";
 import {
