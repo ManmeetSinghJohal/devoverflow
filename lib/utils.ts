@@ -15,7 +15,9 @@ export const getTimestamp = (createdAt: Date): string => {
   const YEAR = 365.25 * DAY; // Average length, accounting for leap years
 
   const now = new Date();
-  const differenceInSeconds = Math.floor((now.getTime() - createdAt.getTime()) / 1000);
+  const differenceInSeconds = Math.floor(
+    (now.getTime() - createdAt.getTime()) / 1000
+  );
 
   if (differenceInSeconds < MINUTE) {
     return `${differenceInSeconds} seconds ago`;
@@ -34,12 +36,11 @@ export const getTimestamp = (createdAt: Date): string => {
   }
 };
 
-
 export const formatAndDivideNumber = (num: number): string => {
   if (num === undefined || num === null) {
-    return "0"; 
+    return "0";
   }
-  
+
   if (num >= 1_000_000) {
     return (num / 1_000_000).toFixed(1) + "M";
   } else if (num >= 1_000) {
@@ -47,4 +48,12 @@ export const formatAndDivideNumber = (num: number): string => {
   } else {
     return num.toString();
   }
+};
+
+export const getJoinedDate = (date: Date): string => {
+  const month = date.toLocaleString("default", { month: "long" });
+  const year = date.getFullYear();
+
+  const joinedDate = `${month} ${year}`;
+  return joinedDate;
 };
