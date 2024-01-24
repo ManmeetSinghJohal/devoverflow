@@ -43,7 +43,7 @@ const Answer = ({ question, questionId, authorId }: Props) => {
       await createAnswer({
         content: values.answer,
         author: JSON.parse(authorId),
-        question: JSON.parse(question),
+        question: JSON.parse(questionId),
         path: pathname,
       });
 

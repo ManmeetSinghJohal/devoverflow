@@ -11,17 +11,16 @@ import { getUserById } from "@/lib/actions/user.action";
 import AllAnswers from "@/components/shared/AllAnswers";
 import Votes from "@/components/shared/Votes";
 
+const Page = async ({ params, searchParams }: any) => {
+  const { userId: clerkId } = auth();
 
-const Page = async ({ params, searchParams } : any) => {
-    const {userId: clerkId} = auth()
+  let mongoUser;
 
-    let mongoUser;
+  if (clerkId) {
+    mongoUser = await getUserById({ userId: clerkId });
+  }
 
-    if(clerkId){
-      mongoUser = await getUserById({ userId: clerkId});
-    }
-
-    const result = await getQuestionById({ questionId: params.id });
+  const result = await getQuestionById({ questionId: params.id });
 
   return (
     <>
@@ -43,8 +42,8 @@ const Page = async ({ params, searchParams } : any) => {
             </p>
           </Link>
           <div className="flex justify-end">
-            <Votes 
-              type="question"
+            <Votes
+              type="Question"
               itemId={JSON.stringify(result._id)}
               userId={JSON.stringify(mongoUser._id)}
               upvotes={result.upvotes.length}
@@ -87,17 +86,22 @@ const Page = async ({ params, searchParams } : any) => {
 
       <div className="mt-8 flex flex-wrap gap-2">
         {result.tags.map((tag: any) => (
-            <RenderTag key={tag._id} _id={tag._id} name={tag.name} showCount={false} />
+          <RenderTag
+            key={tag._id}
+            _id={tag._id}
+            name={tag.name}
+            showCount={false}
+          />
         ))}
       </div>
 
-        <AllAnswers 
-          questionId={result._id}
-          userId={JSON.stringify(mongoUser._id)}
-          totalAnswers={result.answers.length}
-        />
+      <AllAnswers
+        questionId={result._id}
+        userId={mongoUser._id}
+        totalAnswers={result.answers.length}
+      />
 
-      <Answer 
+      <Answer
         question={result.content}
         questionId={JSON.stringify(result._id)}
         authorId={JSON.stringify(mongoUser._id)}
