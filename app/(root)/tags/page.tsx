@@ -4,9 +4,12 @@ import { UserFilters } from "@/constants/filters";
 import Filter from "@/components/shared/Filter";
 import NoResult from "@/components/shared/NoResult";
 import { getAllTags } from "@/lib/actions/tag.actions";
+import { SearchParamsProps } from "@/types";
 
-const Page = async () => {
-  const result = await getAllTags({});
+const Page = async ({ searchParams}: SearchParamsProps) => {
+  const result = await getAllTags({
+    searchQuery: searchParams.q
+  });
 
   return (
     <>
