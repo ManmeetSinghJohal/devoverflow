@@ -50,10 +50,9 @@ const Answer = ({ question, questionId, authorId }: Props) => {
 
       form.reset();
 
-      if(editorRef.current){
-       const editor = editorRef.current as any;
-        editor.setContent('');
-        
+      if (editorRef.current) {
+        const editor = editorRef.current as any;
+        editor.setContent("");
       }
     } catch (error) {
       console.log(error);
@@ -63,17 +62,21 @@ const Answer = ({ question, questionId, authorId }: Props) => {
   };
 
   const generateAIAnswer = async () => {
-    if(!authorId) return;
+    if (!authorId) return;
 
     setIsSubmitingAI(true);
-    
+
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/chatgpt`, {
-        method: 'POST',
-        body: JSON.stringify({question})
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/chatgpt`,
+        {
+          method: "POST",
+          body: JSON.stringify({ question }),
+        }
+      );
 
       const aiAnswer = await response.json();
+      console.log({ aiAnswer });
 
       alert(aiAnswer.reply);
     } catch (error) {
