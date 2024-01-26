@@ -42,10 +42,10 @@ export async function getQuestions(params: GetQuestionsParams) {
         break;
       case "frequent":
         sortOptions = { views: -1 };
-          break;
+        break;
       case "unanswered":
         query.answers = { $size: 0 };
-          break;
+        break;
       default:
         break;
     }
@@ -103,13 +103,12 @@ export async function createQuestion(params: CreateQuestionParams) {
       tags: tagDocuments,
     });
 
-    await User.findByIdAndUpdate(author, {  $inc: { reputation: 5 } });
-
+    await User.findByIdAndUpdate(author, { $inc: { reputation: 5 } });
 
     revalidatePath(path);
   } catch (error) {
     console.log(error);
-    throw error;  
+    throw error;
   }
 }
 
@@ -160,8 +159,9 @@ export async function upvoteQuestion(params: QuestionVoteParams) {
       throw new Error("Question not found");
     }
 
-    await User.findByIdAndUpdate(userId, { 
-      $inc: { reputation: hasupVoted ? -1 : 1 } });
+    await User.findByIdAndUpdate(userId, {
+      $inc: { reputation: hasupVoted ? -1 : 1 },
+    });
 
     await User.findByIdAndUpdate(question.author, {
       $inc: { reputation: hasupVoted ? -10 : 10 },
@@ -200,6 +200,14 @@ export async function downvoteQuestion(params: QuestionVoteParams) {
     if (!question) {
       throw new Error("Question not found");
     }
+
+    await User.findByIdAndUpdate(userId, {
+      $inc: { reputation: hasdownVoted ? -2 : 2 },
+    });
+
+    await User.findByIdAndUpdate(question.author, {
+      $inc: { reputation: hasdownVoted ? -10 : 10 },
+    });
 
     revalidatePath(path);
   } catch (error) {
