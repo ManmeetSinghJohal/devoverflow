@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Value } from "@radix-ui/react-select";
 import { formUrlQuery, removeKeysFromQuery } from "@/lib/utils";
 
 interface CustomInputProps {
