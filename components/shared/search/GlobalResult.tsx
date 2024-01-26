@@ -45,7 +45,18 @@ const GlobalResult = () => {
   }, [global, type]);
 
   const renderLink = (type: string, id: string) => {
-    return '/';
+    switch (type) {
+      case "question":
+        return `/question/${id}`;
+      case "answer":
+        return `/question/${id}`;
+      case "user":
+        return `/profile/${id}`;
+      case "tag":
+        return `/tags/${id}`;
+      default:
+        return "/";
+    }
   }
 
   return (
@@ -68,7 +79,7 @@ const GlobalResult = () => {
           <div className="flex flex-col gap-2">{result.length > 0 ? (
             result.map((item: any, index: number) => (
                 <Link
-                 href={renderLink('type', 'id')}
+                 href={renderLink(item.type, item.id)}
                  key={item.type + item.id + index}
                  className="flex w-full cursor-pointer items-start gap-3 px-5 py-2.5 hover:bg-light-700/50 dark:bg-dark-500/50"
                 >
