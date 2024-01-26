@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import GlobalFilters from "./GlobalFilters";
+import { globalSearch } from "@/lib/actions/general.action";
 
 
 
@@ -27,14 +28,20 @@ const GlobalResult = () => {
       setIsLoading(true);
 
       try {
-        // get everything from the database
-      } catch (error) {
-        console.log(error);
-        throw error;
-      } finally {
-        setIsLoading(false);
+        const res = await globalSearch({ query: global, type});
+
+        setResult(JSON.parse(res));
+        } catch (error) {
+          console.log(error);
+          throw error;
+        } finally {
+          setIsLoading(false);
+        }
+      };
+
+      if (global) {
+        fetchResult();
       }
-    };
   }, [global, type]);
 
   const renderLink = (type: string, id: string) => {
