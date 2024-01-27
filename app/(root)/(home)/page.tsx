@@ -11,6 +11,17 @@ import { SearchParamsProps } from "@/types";
 import Pagination from "@/components/shared/Pagination";
 
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Home | DevFlow",
+  description:
+    "A community-driven platform for asking and answering programming questions. Get help and share your knowledge, and collaborate with other developers from around the world.  Explore topics in web development, mobile app development, algorithms, data structures and more.",
+  icons: {
+    icon: "/assets/images/site-logo.svg",
+  },
+};
+
 export default async function Home({ searchParams }: SearchParamsProps) {
   const result = await getQuestions({
     searchQuery: searchParams.q,
