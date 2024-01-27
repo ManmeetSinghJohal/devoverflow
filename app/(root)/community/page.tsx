@@ -12,7 +12,6 @@ const Page = async ({ searchParams }: SearchParamsProps) => {
     searchQuery: searchParams.q,
     filter: searchParams.filter,
     page: searchParams.page ? +searchParams.page : 1,
-    
   });
 
   return (
