@@ -5,6 +5,7 @@ import Metric from "@/components/shared/Metric";
 import { getTimestamp, formatAndDivideNumber } from "@/lib/utils";
 import { SignedIn } from "@clerk/nextjs";
 import EditDeleteAction from "../shared/EditDeleteAction";
+import { IUpvotes } from "@/database/question.model";
 
 interface QuestionProps {
   _id: string;
@@ -18,8 +19,8 @@ interface QuestionProps {
     name: string;
     picture: string;
   };
-  upvotes: string[];
-  view: number;
+  upvotes: IUpvotes[];
+  views: number;
   answers: Array<object>;
   createdAt: Date;
   clerkId?: string;
@@ -32,11 +33,11 @@ const QuestionCard = ({
   tags,
   author,
   upvotes,
-  view,
+  views,
   answers,
   createdAt,
 }: QuestionProps) => {
-  const showActionButtons = clerkId && clerkId === author.clerkId;
+  const showActionButtons = clerkId && clerkId === author._id;
 
   return (
     <div className="card-wrapper rounded-[10px] p-9 sm:px-11">
@@ -93,7 +94,7 @@ const QuestionCard = ({
           <Metric
             imgURL="/assets/icons/eye.svg"
             alt="eyes"
-            value={formatAndDivideNumber(view)}
+            value={formatAndDivideNumber(views)}
             title=" Views"
             textStyles="small-medium text-dark400_light800"
           />
