@@ -1,12 +1,28 @@
 import Link from "next/link";
+import UserCard from "@/components/cards/UserCard";
+import Filter from "@/components/shared/Filter";
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { UserFilters } from "@/constants/filters";
-import Filter from "@/components/shared/Filter";
 import { getAllUsers } from "@/lib/actions/user.action";
-import UserCard from "@/components/cards/UserCard";
+import { SearchParamsProps } from "@/types";
+import Pagination from "@/components/shared/Pagination";
+import type { Metadata } from "next";
 
-const Page = async () => {
-  const result = await getAllUsers({});
+export const metadata: Metadata = {
+  title: "Community | DevFlow",
+  description:
+    "A community-driven platform for asking and answering programming questions. Get help and share your knowledge, and collaborate with other developers from around the world.  Explore topics in web development, mobile app development, algorithms, data structures and more.",
+  icons: {
+    icon: "/assets/images/site-logo.svg",
+  },
+};
+
+const Page = async ({ searchParams }: SearchParamsProps) => {
+  const result = await getAllUsers({
+    searchQuery: searchParams.q,
+    filter: searchParams.filter,
+    page: searchParams.page ? +searchParams.page : 1,
+  });
 
   return (
     <>
@@ -29,16 +45,23 @@ const Page = async () => {
 
       <section className="mt-12 flex flex-wrap gap-4">
         {result.users.length > 0 ? (
-          result.users.map((user) => <UserCard key={user._id} user={user}/>)
+          result.users.map((user) => <UserCard key={user._id} user={user} />)
         ) : (
           <div className="paragraph-regular text-dark200_light800 mx-auto max-w-4xl text-center">
             <p>No users yet</p>
             <Link href="/sign-up" className="mt-2 font-bold text-accent-blue">
-                Join to be the first
+              Join to be the first
             </Link>
           </div>
         )}
       </section>
+
+      <div className="mt-10">
+        <Pagination
+          pageNumber={searchParams?.page ? +searchParams.page : 1}
+          isNext={result.isNext}
+        />
+      </div>
     </>
   );
 };

@@ -5,7 +5,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
-import '../styles/prism.css';
+import "../styles/prism.css";
 import { ThemeProvider } from "@/context/ThemeProvider";
 
 const inter = Inter({
@@ -24,9 +24,9 @@ export const metadata: Metadata = {
   title: "DevFlow",
   description:
     "A community-driven platform for asking and answering programming questions. Get help and share your knowledge, and collaborate with other developers from around the world.  Explore topics in web development, mobile app development, algorithms, data structures and more.",
-  // icons: {
-  //   icon: "/assets/images/site-logo.svg",
-  // },
+  icons: {
+    icon: "/assets/images/site-logo.svg",
+  },
 };
 
 export default function RootLayout({
@@ -41,7 +41,7 @@ export default function RootLayout({
           appearance={{
             elements: {
               formButtonPrimary: "primary-gradient",
-              footerActionLink: "primary-text-gradient hover:text-primary-500",
+              footerActionLink: "primary-text-gradient hover:text-primary1-500",
             },
           }}
         >
