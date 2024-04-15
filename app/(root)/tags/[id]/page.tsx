@@ -2,7 +2,7 @@ import QuestionCard from "@/components/cards/QuestionCard";
 import NoResult from "@/components/shared/NoResult";
 import Pagination from "@/components/shared/Pagination";
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
-import { IQuestion } from "@/database/question.model";
+import { IQuestionWithTagsUpVotesAuthor } from "@/database/question.model";
 import { getQuestionsByTagId } from "@/lib/actions/tag.actions";
 import { URLProps } from "@/types";
 import React from "react";
@@ -25,20 +25,19 @@ const Page = async ({ params, searchParams }: URLProps) => {
           placeholder="Search tag questions"
           otherClasses="flex-1"
         />
-
       </div>
 
       <div className="mt-10 flex w-full flex-col gap-6">
         {result.questions.length > 0 ? (
-          result.questions.map((question: IQuestion) => (
-            <QuestionCard 
+          result.questions.map((question: IQuestionWithTagsUpVotesAuthor) => (
+            <QuestionCard
               key={question._id}
               _id={question._id}
               title={question.title}
               tags={question.tags}
-              author={question.author}
+              views={question.views}
               upvotes={question.upvotes}
-              view={question.view}
+              author={question.author}
               answers={question.answers}
               createdAt={question.createdAt}
             />
