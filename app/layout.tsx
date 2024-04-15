@@ -41,7 +41,7 @@ export default function RootLayout({
           appearance={{
             elements: {
               formButtonPrimary: "primary-gradient",
-              footerActionLink: "primary-text-gradient hover:text-primary-500",
+              footerActionLink: "primary-text-gradient hover:text-primary1-500",
             },
           }}
         >
