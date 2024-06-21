@@ -39,7 +39,8 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
   const parsedQuestionDetails =
     questionDetails && JSON.parse(questionDetails || "");
 
-  const groupedTags = parsedQuestionDetails?.tags.map((tag) => tag.name);
+ const groupedTags =
+   parsedQuestionDetails?.tags.map((tag: { name: string }) => tag.name) ?? [];
 
   const form = useForm<z.infer<typeof QuestionsSchema>>({
     resolver: zodResolver(QuestionsSchema),
@@ -124,7 +125,7 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
           render={({ field }) => (
             <FormItem className="flex w-full flex-col">
               <FormLabel className="paragraph-semibold text-dark400_light800">
-                Question Title<span className="text-primary-500">*</span>
+                Question Title<span className="text-primary1-500">*</span>
               </FormLabel>
               <FormControl className="mt-3.5">
                 <Input
@@ -147,7 +148,7 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
             <FormItem className="flex w-full flex-col gap-3">
               <FormLabel className="paragraph-semibold text-dark400_light800">
                 Detailed explanation of your problem{" "}
-                <span className="text-primary-500">*</span>
+                <span className="text-primary1-500">*</span>
               </FormLabel>
               <FormControl className="mt-3.5">
                 <Editor
@@ -203,7 +204,7 @@ const Question = ({ type, mongoUserId, questionDetails }: Props) => {
           render={({ field }) => (
             <FormItem className="flex w-full flex-col">
               <FormLabel className="paragraph-semibold text-dark400_light800">
-                Tags <span className="text-primary-500">*</span>
+                Tags <span className="text-primary1-500">*</span>
               </FormLabel>
               <FormControl className="mt-3.5">
                 <>

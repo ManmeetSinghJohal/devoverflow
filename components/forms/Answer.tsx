@@ -73,17 +73,14 @@ const Answer = ({ question, questionId, authorId }: Props) => {
       });
 
       const aiAnswer = await response.json();
-    
 
       const formattedAsnwer = aiAnswer.reply.replace(/\n/g, "<br />");
 
-      console.log(formattedAsnwer)
+      console.log(formattedAsnwer);
       if (editorRef.current) {
         const editor = editorRef.current as any;
         editor.setContent(formattedAsnwer);
       }
-
-
     } catch (error) {
       console.log(error);
       throw error;
@@ -100,23 +97,23 @@ const Answer = ({ question, questionId, authorId }: Props) => {
         </h4>
 
         <Button
-          className="btn light-border-2 gap-1.5 rounded-md px-4 py-2.5 text-primary-500 shadow-none dark:text-primary-500"
+          className="btn light-border-2 gap-1.5 rounded-md px-4 py-2.5 text-primary1-500 shadow-none dark:text-primary1-500"
           onClick={generateAIAnswer}
         >
           {isSubmitingAI ? (
+            <>Generating...</>
+          ) : (
             <>
-            Generating...
+              <Image
+                src="/assets/icons/stars.svg"
+                alt="star"
+                width={12}
+                height={12}
+                className="object-contain"
+              />
+              Generate AI Answer
             </>
-          ) : (<>
-            <Image
-              src="/assets/icons/stars.svg"
-              alt="star"
-              width={12}
-              height={12}
-              className="object-contain"
-            />
-            Generate AI Answer
-          </>)}
+          )}
         </Button>
       </div>
 
