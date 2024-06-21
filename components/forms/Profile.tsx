@@ -28,7 +28,7 @@ const Profile = ({ clerkId, user }: Props) => {
   const parsedUser = JSON.parse(user);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
-  const  pathname  = usePathname();
+  const pathname = usePathname();
 
   const form = useForm<z.infer<typeof ProfileSchema>>({
     resolver: zodResolver(ProfileSchema),
@@ -43,19 +43,19 @@ const Profile = ({ clerkId, user }: Props) => {
 
   async function onSubmit(values: z.infer<typeof ProfileSchema>) {
     setIsSubmitting(true);
-    
+
     try {
       await updateUser({
-         clerkId, 
-          updateData: {
-            name: values.name,
-            username: values.username,
-            portfolioWebsite: values.portfolioWebsite,
-            location: values.location,
-            bio: values.bio,
-          },
-          path: pathname
-        });
+        clerkId,
+        updateData: {
+          name: values.name,
+          username: values.username,
+          portfolioWebsite: values.portfolioWebsite,
+          location: values.location,
+          bio: values.bio,
+        },
+        path: pathname,
+      });
 
       router.back();
     } catch (error) {
@@ -78,7 +78,7 @@ const Profile = ({ clerkId, user }: Props) => {
           render={({ field }) => (
             <FormItem className="space-y-3.5">
               <FormLabel>
-                Name <span className="text-primary-500">*</span>
+                Name <span className="text-primary1-500">*</span>
               </FormLabel>
               <FormControl>
                 <Input
@@ -98,7 +98,7 @@ const Profile = ({ clerkId, user }: Props) => {
           render={({ field }) => (
             <FormItem className="space-y-3.5">
               <FormLabel>
-                Username <span className="text-primary-500">*</span>
+                Username <span className="text-primary1-500">*</span>
               </FormLabel>
               <FormControl>
                 <Input
@@ -155,7 +155,7 @@ const Profile = ({ clerkId, user }: Props) => {
           render={({ field }) => (
             <FormItem className="space-y-3.5">
               <FormLabel>
-                Bio <span className="text-primary-500">*</span>
+                Bio <span className="text-primary1-500">*</span>
               </FormLabel>
               <FormControl>
                 <Textarea
