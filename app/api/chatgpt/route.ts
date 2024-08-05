@@ -32,9 +32,9 @@ export const POST = async (request: Request) => {
     console.log(reply);
 
     return NextResponse.json({ reply });
-  } catch (error) {
+  } catch (error: any) {
     return NextResponse.json({
-      error: "An error occurred while processing your request.",
+      error: error.message,
     });
   }
 };
